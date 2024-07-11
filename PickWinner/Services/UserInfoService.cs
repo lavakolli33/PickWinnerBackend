@@ -12,13 +12,14 @@ namespace PickWinner.Services
         {          
         }
 
-        public Task<IEnumerable<int>> GetLotteryNumbers(int numbersCount)
+        public Task<List<int>> GetLotteryNumbers(int numbersCount)
         {
             var rnd = new Random();
             // Get an enumerable list of 50 numbers
             var numList = Enumerable.Range(1, 49);
-            var randomNumbersList = RandomNumberHelper.GetRandomNumbersList<int>(numList, numbersCount);         
-            return Task.FromResult(randomNumbersList);
+            var randomNumbersList = RandomNumberHelper.GetRandomNumbersList<int>(numList, numbersCount);
+            var rno = randomNumbersList.OrderBy(n => n).ToList();
+            return Task.FromResult(rno);
         }
 
         public Task<IEnumerable<int>> GetBonusBall(LotteryInfo lotteryList)

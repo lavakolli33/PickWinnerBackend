@@ -2,7 +2,7 @@
 {
     public interface IUserInfo
     {
-        Task<IEnumerable<int>> GetLotteryNumbers(int numbersCount);
+        Task<List<int>> GetLotteryNumbers(int numbersCount);
 
         Task<IEnumerable<int>> GetBonusBall(LotteryInfo lotteryList);
     }

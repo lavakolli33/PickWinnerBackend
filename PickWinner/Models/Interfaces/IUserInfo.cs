@@ -2,8 +2,8 @@
 {
     public interface IUserInfo
     {
-        Task<IEnumerable<UserInfo>> GetUsersByIds(int numberOfWinners);
+        Task<IEnumerable<int>> GetLotteryNumbers(int numbersCount);
 
-        Task<IEnumerable<UserInfo>> GetAllUsers();
+        Task<IEnumerable<int>> GetBonusBall(LotteryInfo lotteryList);
     }
 }

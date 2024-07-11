@@ -1,27 +1,33 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PickWinner.Helpers;
 using PickWinner.Models;
 using PickWinner.Models.Interfaces;
+using System.Linq;
 
 namespace PickWinner.Services
 {
     public class UserInfoService : IUserInfo
-    {
-        private readonly AppDBContext context;
-
-        public UserInfoService(AppDBContext context)
-        {
-            this.context = context;
+    { 
+        public UserInfoService()
+        {          
         }
 
-        public async Task<IEnumerable<UserInfo>> GetAllUsers()
+        public Task<IEnumerable<int>> GetLotteryNumbers(int numbersCount)
         {
-            return await this.context.userInfos.ToListAsync();
+            var rnd = new Random();
+            // Get an enumerable list of 50 numbers
+            var numList = Enumerable.Range(1, 49);
+            var randomNumbersList = RandomNumberHelper.GetRandomNumbersList<int>(numList, numbersCount);         
+            return Task.FromResult(randomNumbersList);
         }
 
-        public async Task<IEnumerable<UserInfo>> GetUsersByIds(int numberOfWinners)
+        public Task<IEnumerable<int>> GetBonusBall(LotteryInfo lotteryList)
         {
-            var randomUsers = await this.context.userInfos.OrderBy(q => Guid.NewGuid()).Take(numberOfWinners).ToListAsync();
-            return randomUsers;
+            var rnd = new Random();
+            // Get an enumerable list of 50 numbers
+            var numList = Enumerable.Range(1, 49).Except(lotteryList.Item);
+            var randomNumbersList = RandomNumberHelper.GetRandomNumbersList<int>(numList, 1);
+            return Task.FromResult(randomNumbersList);
         }
     }
 }

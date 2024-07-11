@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PickWinner.Models;
 using PickWinner.Models.Interfaces;
 
 namespace PickWinner.Controllers
@@ -14,17 +15,18 @@ namespace PickWinner.Controllers
             this.userInfo = userInfo;
         }
 
-        [HttpGet("GetAllUsers")]
-        public async Task<IActionResult> GetAllUsers()
+        [HttpPost("GetLotteryNumbers/{numberOfWinners}")]
+        public async Task<IActionResult> GetLotteryNumbers(int numberOfWinners)
         {
-            var result = await (userInfo.GetAllUsers());
+            var result = await (userInfo.GetLotteryNumbers(numberOfWinners));
             return Ok(result);
         }
 
-        [HttpPost("GetUsersByIds/{numberOfWinners}")]
-        public async Task<IActionResult> GetUsersByIds(int numberOfWinners)
+
+        [HttpPost("GetBonusBall/{numberOfWinners}")]
+        public async Task<IActionResult> GetBonusBall(LotteryInfo lotteryList)
         {
-            var result = await (userInfo.GetUsersByIds(numberOfWinners));
+            var result = await (userInfo.GetBonusBall(lotteryList));
             return Ok(result);
         }
     }

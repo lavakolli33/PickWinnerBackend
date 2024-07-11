@@ -22,8 +22,6 @@ namespace PickWinner
             
             services.AddControllers();
 
-            services.AddDbContextPool<AppDBContext>(options => options.UseSqlServer(configuration.GetConnectionString("pickWinnerDBConnection")));
-
             services.AddScoped<IUserInfo, UserInfoService>();
             services.AddSwaggerGen(c =>
             {

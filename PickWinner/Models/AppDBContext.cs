@@ -8,7 +8,5 @@ namespace PickWinner.Models
         {
 
         }
-
-        public DbSet<UserInfo> userInfos { get; set; }
     }
 }
